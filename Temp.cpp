@@ -13,7 +13,7 @@ public:
     }
 };
 
-template <typename T,size_t SIZE>
+template <typename T, size_t SIZE>
 class TempArray
 {
 private:
@@ -35,6 +35,6 @@ void func2(int *pia); // int array
 int wmain()
 {
     func1(Temp<int>());
-    func2(TempArray<int,3>()); // length: 3
+    func2(TempArray<int, 3>()); // length: 3
     return 0;
 }
