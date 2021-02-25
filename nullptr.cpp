@@ -1,7 +1,7 @@
 ﻿
 namespace std
 {
-    const class nullptr_t
+    class nullptr_t
     {
     public:
         template <class T>
@@ -20,4 +20,5 @@ namespace std
         void operator&() const;
     };
 }
-std::nullptr_t mynullptr = {};
+
+const std::nullptr_t mynullptr = {};
