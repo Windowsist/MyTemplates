@@ -1,4 +1,11 @@
-﻿template <typename T>
+﻿//#include <crtdefs.h>
+typedef unsigned long long size_t;
+
+//#include <stdarg.h>
+typedef char *va_list;
+extern "C" extern void __cdecl __va_start(va_list *, ...);
+
+template <typename T>
 class Temp
 {
 private:
@@ -28,12 +35,15 @@ public:
             t[i] = ts[i];
         }
     }
-    TempArray(T... ts)
+    TempArray(T...)
     {
+        va_list valist;
+        __va_start(&valist, SIZE); // va_start(valist, SIZE);
         for (size_t i = 0; i < SIZE; i++)
         {
-            t[i] = ts[i];
+            t[i] = ((sizeof(T) > sizeof(__int64) || (sizeof(T) & (sizeof(T) - 1)) != 0) ? **(T **)((valist += sizeof(__int64)) - sizeof(__int64)) : *(T *)((valist += sizeof(__int64)) - sizeof(__int64))); //va_arg(valist, T);
         }
+        valist = ((va_list)0); //va_end(valist);
     }
     operator T *()
     {
