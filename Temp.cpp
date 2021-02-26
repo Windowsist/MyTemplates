@@ -14,7 +14,7 @@ private:
 public:
     Temp() {}
     Temp(T t) : t(t) {}
-    operator T *()
+    inline operator T *()
     {
         return &t;
     }
@@ -45,7 +45,7 @@ public:
         }
         valist = ((va_list)0); //va_end(valist);
     }
-    operator T *()
+    inline operator T *()
     {
         return t;
     }
