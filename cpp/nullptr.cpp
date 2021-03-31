@@ -16,7 +16,7 @@ namespace std
             return 0;
         }
 
-    private:
+    private: //or use "= delete"
         void operator&() const;
     };
 }
