@@ -5,7 +5,7 @@ namespace App1
     {
         [System.Runtime.InteropServices.DllImport("api-ms-win-core-processthreads-l1-1-0.dll")]
         private static extern void ExitProcess(int code);
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             System.Console.WriteLine(@"English
 中文 (简体)

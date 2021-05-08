@@ -1,9 +1,6 @@
-﻿//#include <crtdefs.h>
-typedef unsigned long long size_t;
+﻿#include <crtdefs.h>
 
-//#include <stdarg.h>
-typedef char *va_list;
-extern "C" extern void __cdecl __va_start(va_list *, ...);
+#include <stdarg.h>
 
 template <typename T>
 class Temp
@@ -13,7 +10,7 @@ private:
 
 public:
     Temp() {}
-    Temp(T t) : t(t) {}
+    Temp(const T t) : t(t) {}
     inline operator T *()
     {
         return &t;
@@ -35,15 +32,15 @@ public:
             t[i] = ts[i];
         }
     }
-    TempArray(T...)
+    TempArray(const T...)
     {
         va_list valist;
-        __va_start(&valist, SIZE); // va_start(valist, SIZE);
+        va_start(valist, SIZE);
         for (size_t i = 0; i < SIZE; i++)
         {
-            t[i] = ((sizeof(T) > sizeof(__int64) || (sizeof(T) & (sizeof(T) - 1)) != 0) ? **(T **)((valist += sizeof(__int64)) - sizeof(__int64)) : *(T *)((valist += sizeof(__int64)) - sizeof(__int64))); //va_arg(valist, T);
+            t[i] = va_arg(valist, T);
         }
-        valist = ((va_list)0); //va_end(valist);
+        va_end(valist);
     }
     inline operator T *()
     {
@@ -60,7 +57,7 @@ void func3(bool *lpbool);   // output bool array but useless
 
 int wmain(int argc, wchar_t **argv, wchar_t **envp)
 {
-    func1(Temp<int>(3));                           // value is 3
+    func1(Temp<int>(3));                                // type is int, value is 3
     func2(TempArray<wchar_t, 5>(L"ASDF"));         // length: 5 , vlaue is {L'A', L'S', L'D' ,L'F'}
     func3(TempArray<bool, 3>(true, false, false)); // length: 3 , vlaue is {true, false, false}
     return 0;

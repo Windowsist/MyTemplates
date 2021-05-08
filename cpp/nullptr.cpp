@@ -1,7 +1,7 @@
 ﻿
 namespace std
 {
-    class nullptr_t
+    class nullptr_t2
     {
     public:
         template <class T>
@@ -17,8 +17,8 @@ namespace std
         }
 
     private: //or use "= delete"
-        void operator&() const;
+        void operator&() const = delete;
     };
 }
 
-const std::nullptr_t mynullptr = {};
+extern const std::nullptr_t2 nullptr2 = {};
